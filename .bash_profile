@@ -23,6 +23,10 @@ fi
 if [ -f /usr/local/Cellar/bash-completion/1.3/etc/bash_completion ]; then
   . /usr/local/Cellar/bash-completion/1.3/etc/bash_completion
 fi
+if [ -f ~/.git-prompt.sh ]; then
+  source ~/.git-prompt.sh
+  export PS1="${CYAN}\h${WHITE}[${YELLOW}\w${WHITE}]\$(__git_ps1 '${WHITE}[${GREEN}%s${RED}'\$(git_status)'${WHITE}]')${WHITE}${NO_COLOR}"
+fi
 # Shell colors
 BLACK="\[\e[0;30m\]"  BOLD_BLACK="\[\e[1;30m\]"  UNDER_BLACK="\[\e[4;30m\]"
 RED="\[\e[0;31m\]"    BOLD_RED="\[\e[1;31m\]"    UNDER_RED="\[\e[4;31m\]"
@@ -40,7 +44,6 @@ function git_status {
   pattern="untracked files"
   [[ "$status" =~ "$pattern" ]] && echo "*"
 }
-export PS1="${CYAN}\h${WHITE}[${YELLOW}\w${WHITE}]\$(__git_ps1 '${WHITE}[${GREEN}%s${RED}'\$(git_status)'${WHITE}]')${WHITE}${NO_COLOR}"
 export PS2=" > "
 export PS4=" + "
 export CLICOLOR=1
